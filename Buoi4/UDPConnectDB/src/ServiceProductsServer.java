@@ -1,6 +1,6 @@
 import java.sql.*;
 
-public class ServiceProducts {
+public class ServiceProductsServer {
     private Connection connection;
     private Statement statement;
 

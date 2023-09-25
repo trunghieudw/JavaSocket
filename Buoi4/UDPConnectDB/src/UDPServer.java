@@ -2,11 +2,11 @@ import java.net.*;
 
 public class UDPServer {
     private static final int PORT = 9876;
-    private static ServiceProducts serviceProducts;
+    private static ServiceProductsServer serviceProductsServer;
 
     public static void main(String[] args) {
         try {
-            serviceProducts = new ServiceProducts();
+            serviceProductsServer = new ServiceProductsServer();
             DatagramSocket serverSocket = new DatagramSocket(PORT);
 
             byte[] receiveData = new byte[1024];
@@ -40,7 +40,7 @@ public class UDPServer {
                     String productName = parts[1];
                     String productCode = parts[2];
                     double productPrice = Double.parseDouble(parts[3]);
-                    serviceProducts.addProduct(productName, productCode, productPrice);
+                    serviceProductsServer.addProduct(productName, productCode, productPrice);
                     return "Product added successfully.";
 
                 case "update":
@@ -48,17 +48,17 @@ public class UDPServer {
                     productName = parts[2];
                     productCode = parts[3];
                     productPrice = Double.parseDouble(parts[4]);
-                    serviceProducts.updateProduct(productId, productName, productCode, productPrice);
+                    serviceProductsServer.updateProduct(productId, productName, productCode, productPrice);
                     return "Product updated successfully.";
 
                 case "delete":
                     productId = Integer.parseInt(parts[1]);
-                    serviceProducts.deleteProduct(productId);
+                    serviceProductsServer.deleteProduct(productId);
                     return "Product deleted successfully.";
 
                 case "searchById":
                     int searchId = Integer.parseInt(parts[1]);
-                    return serviceProducts.searchProductById(searchId);
+                    return serviceProductsServer.searchProductById(searchId);
 
                 default:
                     return "Invalid request.";
